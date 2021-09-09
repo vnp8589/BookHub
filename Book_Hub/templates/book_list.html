@@ -1,0 +1,17 @@
+<h1>Search Results</h1>
+
+    {% for our_books in object_list %}
+      <a href="{{ our_books.get_absolute_url }}">
+      <b>{{ our_books }}</b></a>
+
+      <a href="{% url 'Book details' our_books.id %}"><img src="{{our_book.Img.url}}" alt="Image"></a>
+    {% endfor %}
+
+    {% for o in u1 %}
+    <h1>{{o.username}}</h1>
+    
+    <button>share</button>
+    {% endfor %}
+
+
+</ul>

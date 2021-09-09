@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="columns is-mobile is-centered">
+  <div class="column">
+  
+  <div class="card">
+  
+  <div class="column is-one-fifth">
+  <div class="card-image">
+{% for books in data %}
+<a href="{% url 'Book details' books.id %}"> <figure class="image is-4by3"><img src="{{books.Img.url}}" alt="Image"></figure></a>
+<h4>Title : {{books.Title}}</h4>
+<h4>Author : {{books.Author}}</h4>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+{% endfor %}
+{% endblock %}
