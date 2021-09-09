@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="columns is-mobile is-centered">
+  <div class="column">
+  
+  <div class="card">
+  
+  <div class="column is-one-fifth">
+  <div class="card-image">
+    {% for books in bookDetails %}
+<form action="rating_process" method="post">
+  {% csrf_token %}
+    <figure class="image is-4by3">
+      <img src="{{books.Img.url}}" alt="">
+    </figure>
+  </div>
+
+  </div>
+  <div class="column is-three-fifths">
+    <table>
+  <tr><td><p><B>Book Title : </B>{{books.Title}}</p> </td></tr>
+  <tr><td><p> <B>Book Author : </B>{{books.Author}}</p> </td></tr>
+  <tr><td><p><B> Book Category : </B>{{books.Category}}</p> </td></tr>
+  <tr><td><p><B>Ratings : </B>{% if books.get_rating == 0 %}Be The First to Rate{% else %}{{ books.get_rating|floatformat:1 }}{% endif %}</p> </td></tr>
+ </td></tr>
+{% endfor %}
+</table>
+  </div>
+    
+
+ 
+<div>
+
+
+  <div class="column is-three-fifths" style="font-weight: bold">
+Reviews</div>
+
+  <div class="reviews-wrapper">
+    <div class="notification space-below">
+      {% for review in reviews %}
+<div class="notification space-below">
+              <p>
+                  <strong>Stars: </strong>{{ review.stars }}
+              </p>
+
+              {{ review.content }}
+              </div>
+         
+      {% empty %}
+       </div>
+          <div class="notification space-below">
+              No reviews yet...
+          </div>
+      {% endfor %}
+  </div>
+</form>
+        <div class="notification space-below">
+            <form method="post" action="{% url 'rating_process' %}" id="review_form">
+                {% csrf_token %}
+                <input type="hidden" name="books_id" value="{{ books_id }}">
+
+                    <div class="field">
+                        <label>Stars</label>
+
+                        <div clas="control">
+                            <div class="select">
+                                <select name="stars">
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3" >3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Content</label>
+
+                        <div class="control">
+                            <textarea class="textarea" name="content"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-success">Submit</button>
+                        </div>
+                    </div>
+                </form>
+        </div>
+    </div>
+
+</div>
+</div>
+</div>
+{% endblock %}
+
+
+
+
+
+

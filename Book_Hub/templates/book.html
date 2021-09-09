@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<center>
+<form action="{% url 'list_book' %}" method="get">
+  <div class="control">
+    <input class="input" name="q1" type="text" placeholder="Search Books..." value="{{ request.GET.q1 }}">
+  </div>
+  <div class="control">
+      <button type="submit" class="button is-success">Search</button>
+  </div>
+  </form>
+</center>
+
+<section class="section">
+    <div class="container">
+   
+
+<section class="section">
+    <div class="container">
+ 
+
+<div class="columns is-mobile">
+  <div class="column is-centered">
+
+
+
+
+{% for books in object_list %}
+<a href="{% url 'Book details' books.id %}"><img src="{{books.Img.url}}" alt="Image"></a>
+<h4>Title : {{books.Title}}</h4>
+<h4>Author : {{books.Author}}</h4>
+
+{% endfor %}
+</section>
+<div class="columns is-mobile is-multiline is-centered"> 
+
+
+        
+      
+    
+  {% for book in book_obj %}
+
+    
+      <div class="column is-one-quarter">
+
+        <div class="box">
+        <figure class="image is-1by1">
+          <a href="{% url 'Book details' book.id %}"><img src="{{book.Img.url}}" alt="Image"></a>
+        </figure>
+
+        <div class="is-centered">
+        <div>Title : {{book.Title}}</div>
+		<div>Author : {{book.Author}}</div>
+    <div>Ratings: {% if book.get_rating == 0 %}Be The First to Rate{% else %}{{ book.get_rating|floatformat:1 }}{% endif %}</div>
+    </div>
+
+          
+
+		</div> 
+    </div>   
+
+ {% empty %}
+      <br>
+    {% endfor %}
+
+  </form>
+  </div>
+
+
+ 
+
+</div>
+  </section>
+  <form method="get" action="{% url 'filterBook' %}">
+      
+          <!-- <input name="q2" type="text" placeholder="Filter..."> -->
+         <center> <label for="Category"><h4>Categories</h4></label>
+          &nbsp;&nbsp;&nbsp;
+          <select name="Category" class="input">
+            <option selected value><h4>Select A Category</h4></option>
+            <option value="Horror">Horror</option>
+            <option value="story">Story</option>
+            <option value="comedy">Comedy</option>
+            <option value="Fantasy">Fantasy</option>
+             <option value="Adventure">Adventure</option>
+              <option value="Romance">Romance</option>
+               <option value="Contemporary">Contemporary</option>
+                <option value="Mystery">Mystery</option>
+                 <option value="Thriller">Thriller</option>
+                  <option value="Art">Art</option>
+
+      
+          </select>
+          <br>
+                    
+
+        </center>
+            <div class="tabs is-centered">
+
+        <center><input type="Submit" class="button is-success" value="Search"></center>
+        </div>
+          
+        </form>
+
+{% endblock %}

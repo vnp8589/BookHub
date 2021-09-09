@@ -1,0 +1,118 @@
+ {% extends 'base.html' %}
+
+{% load static %}
+<!--{% load humanize %}-->
+
+{% block content %}
+
+<article class="media">
+  <div class="column is-centered">
+    <div class="box" style="height: 25%; width: 25%">
+        <figure class="image is-1by1">
+        
+  
+        {% if profile.picture %}
+          <img class="is-rounded" src="{{ profile.picture.url }}">
+        {% else %}
+          <img class="is-rounded" src="https://bulma.io/images/placeholders/256x256.png">
+        {% endif %}
+      </figure>
+    </div>
+</div> 
+</article> 
+
+ <div class="media-content">
+     <div class="content">
+      <h1 style="font-weight: bold;" class="title is-1">{% if profile.first_name %}{{ profile.first_name }} {{ profile.last_name }} {% endif %}</h1>
+      <h2 class="subtitle is-3">@{{ profile.user }}</h2>
+    
+    {% if user.is_authenticated and user != profile.user %}
+      <div class="media-right">
+        {% if follow_status == True %}
+          <a href="{% url 'follow' profile.user 0 %}" class="button is-danger">Remove Friend</a>
+        {% else %}
+          <a href="{% url 'follow' profile.user 1 %}" class="button is-success">Add Friend</a>
+        {% endif  %}
+      </div>
+    {% endif %}
+
+</div>
+
+<!--<p class="subtitle is-5">{% if profile.profile_info %}{{ profile.profile_info }}{% endif %}</p>-->
+
+{% if user.is_authenticated and user == profile.user %}
+  <a href="{% url 'edit-profile' %}" class="button">Edit profile</a>
+{% endif %} 
+</div>
+
+ <div class="media-content">
+    <div class="content">
+
+   <nav class="level is-mobile">
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Feeds</p>
+      <p class="title">{{ posts_count }}</p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Friends</p>
+      <p class="title">{{ following_count }}</p>
+    </div>
+  </div>
+  <!--<div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Followers</p>
+      <p class="title">{{ followers_count }}</p>
+    </div>
+  </div>-->
+</nav>
+</div>
+</div>
+
+<section class="section">
+    <div class="container">
+
+    <div class="tabs is-centered">
+  <ul>
+    <div class="column is-3">
+    <li class="{% if url_name == 'profile' %}is-active{% endif %}">
+      <a href="{% url 'profile' profile.user %}"><i class="material-icons">feed</i>My Books</a>
+    </li>
+  </div>
+
+  <div class="column is-3">
+    <li class="{% if url_name == 'profilefavorites' %}is-active{% endif %}">
+      <a href="{% url 'profilefavorites' profile.user %}"><i class="material-icons">save</i>Book Shelf</a>
+    </li>
+  </div>
+  </ul>
+</div>
+  <div class="columns is-mobile is-multiline is-centered">
+  {% for post in posts %}
+
+   <div class="column is-one-quarter">
+
+        <div class="box">
+        <figure class="image is-1by1">
+          
+          <a href="{{ post.get_absolute_url }}"><img src="{{ post.picture.url }}" alt="Image"></a>
+        </figure>  
+    </div>   
+</div>
+ {% empty %}
+      <br>
+      <h3 class="title is-3">You do not have any books!</h3>
+    {% endfor %}
+
+
+  </div>
+
+
+ 
+
+</div>
+  </section>
+
+     {% endblock %}

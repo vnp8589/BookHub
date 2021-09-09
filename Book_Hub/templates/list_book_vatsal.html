@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<head>
+  <title>Books</title>
+  <body>
+    <center>
+      <h1>Book Details</h1>
+      <table border="1">
+        <tr>
+          <th>Book Name</th>
+          <th>Book Author</th>
+          <th>Book Category</th>
+          <th>Book price</th>
+          <th>Region</th>
+        </tr>
+        {% for our_books in object_list %}
+        <tr>
+          <td>{{our_books.Img}}</td>
+          <td>{{our_books.Title}}</td>
+          <td>{{our_books.Author}}</td>
+          <td>{{our_books.Category}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </center>
+
+    <!-- <form method="GET" action="/filterBooks">
+  
+      <label for="Category">Category</label>
+      <select name="Category">
+        <option selected value>select Category</option>
+        <option value="comics">Comics</option>
+        <option value="horror">Horror</option>
+        <option value="story">Story</option>
+        <option value="comedy">Comedy</option>
+  
+      </select>
+
+
+      <label for="Region">Region</label>
+      <select name="Region">
+        <option selected value>select region</option>
+        <option value="India">India</option>
+        <option value="America">America</option>
+        <option value="Canada">Canada</option>
+  
+      </select>
+  
+      <input type="Submit" value="Search">
+    </form> -->
+    <!-- <form method="GET" action="filterBooks">
+      
+      <center> <label for="Category"><h4>Category</h4></label>
+       &nbsp;&nbsp;&nbsp;
+       <select name="Category">
+         <option selected value><h4>select Category</h4></option>
+         <option value="book1_cat">book1_cat</option>
+         <option value="Horror">Horror</option>
+         <option value="story">Story</option>
+         <option value="comedy">Comedy</option>
+   
+       </select>
+
+   
+       <input type="Submit" value="Search">
+     </form></center> -->
+  </body>
+</head>
